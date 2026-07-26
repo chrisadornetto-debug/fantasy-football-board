@@ -6,14 +6,16 @@ import SearchBar from "./components/SearchBar";
 import PositionColumn from "./components/PositionColumn";
 import PlayerModal from "./components/PlayerModal";
 
-import players from "./data/players";
+import playerData from "./data/players";
 
 function App() {
+  const [players, setPlayers] = useState(playerData);
   const [search, setSearch] = useState("");
-
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   const positions = ["QB", "RB", "WR", "TE"];
+
+  const [players, setPlayers] = useState(playerData);
 
   return (
     <>

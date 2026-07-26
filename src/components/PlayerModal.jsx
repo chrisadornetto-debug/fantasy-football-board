@@ -20,7 +20,14 @@ function PlayerModal({ player, onClose }) {
         <p><strong>Position:</strong> {player.position}</p>
         <p><strong>Tier:</strong> {player.tier}</p>
         <p><strong>ADP:</strong> {player.adp}</p>
-
+<label>
+  <input
+    type="checkbox"
+    checked={player.favorite}
+    readOnly
+  />
+  Favorite
+</label>
         <h3>Notes</h3>
 
         <textarea

@@ -7,6 +7,7 @@ const players = [
     rank: 1,
     tier: 1,
     adp: 18,
+    favorite: false,
     notes: "",
   },
   {
@@ -17,6 +18,7 @@ const players = [
     rank: 2,
     tier: 1,
     adp: 24,
+    favorite: false,
     notes: "",
   },
   {
@@ -27,6 +29,7 @@ const players = [
     rank: 1,
     tier: 1,
     adp: 3,
+    favorite: false,
     notes: "",
   },
   {
@@ -37,6 +40,7 @@ const players = [
     rank: 1,
     tier: 1,
     adp: 1,
+    favorite: false,
     notes: "",
   },
   {
@@ -47,6 +51,7 @@ const players = [
     rank: 1,
     tier: 1,
     adp: 15,
+    favorite: false,
     notes: "",
   },
 ];
