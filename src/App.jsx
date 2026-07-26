@@ -15,7 +15,17 @@ function App() {
 
   const positions = ["QB", "RB", "WR", "TE"];
 
+const updatePlayer = (updatedPlayer) => {
+  setPlayers((currentPlayers) =>
+    currentPlayers.map((player) =>
+      player.id === updatedPlayer.id
+        ? updatedPlayer
+        : player
+    )
+  );
 
+  setSelectedPlayer(updatedPlayer);
+};
   return (
     <>
       <Header />
@@ -41,10 +51,11 @@ function App() {
         ))}
       </div>
 
-      <PlayerModal
-        player={selectedPlayer}
-        onClose={() => setSelectedPlayer(null)}
-      />
+<PlayerModal
+  player={selectedPlayer}
+  updatePlayer={updatePlayer}
+    onClose={() => setSelectedPlayer(null)}
+/>
     </>
   );
 }
