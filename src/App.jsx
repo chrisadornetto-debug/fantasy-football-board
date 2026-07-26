@@ -15,7 +15,6 @@ function App() {
 
   const positions = ["QB", "RB", "WR", "TE"];
 
-  const [players, setPlayers] = useState(playerData);
 
   return (
     <>
