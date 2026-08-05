@@ -1,99 +1,59 @@
+import { useDroppable } from "@dnd-kit/core";
+
 import {
-  DndContext,
-  closestCenter,
-} from "@dnd-kit/core";
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
-import TierSection from "./TierSection";
+import SortablePlayerCard from "./SortablePlayerCard";
 
-
-function PositionColumn({
-  title,
+function TierSection({
+  tier,
+  position,
   players,
   onPlayerClick,
   selectedPlayer,
-  onReorder,
 }) {
+  const tierId = `tier-${position}-${tier}`;
 
-  const tiers = [1, 2, 3, 4, 5];
-
-
-function handleDragEnd(event) {
-  const {
-    active,
-    over,
-  } = event;
-
-
-  if (!over) return;
-
-
-  const activeId = active.id;
-  const overId = over.id;
-
-
-  let newTier = null;
-
-
-  // Dropped directly onto a tier section
-  if (
-    typeof overId === "string" &&
-    overId.startsWith("tier-")
-  ) {
-
-    const parts = overId.split("-");
-
-    newTier = Number(parts[2]);
-
-  }
-
-
-  onReorder(
-    activeId,
-    overId,
-    title,
-    newTier
-  );
-}
-
+  const { setNodeRef, isOver } = useDroppable({
+    id: tierId,
+    data: {
+      type: "tier",
+      position,
+      tier,
+    },
+  });
 
   return (
-    <div className="position-column">
+    <section
+      ref={setNodeRef}
+      className={`tier-section ${
+        isOver ? "tier-over" : ""
+      }`}
+    >
+      <div className="tier-header">
+        <span>Tier {tier}</span>
+        <span>{players.length}</span>
+      </div>
 
-      <h2>{title}</h2>
-
-
-      <DndContext
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
+      <SortableContext
+        items={players.map((player) => player.id)}
+        strategy={verticalListSortingStrategy}
       >
-
-        <div className="tier-container">
-
-          {tiers.map((tier) => (
-
-           <TierSection
-  key={tier}
-  tier={tier}
-  position={title}
-  players={
-    players.filter(
-      player =>
-        player.tier === tier
-    )
-  }
-  onPlayerClick={onPlayerClick}
-  selectedPlayer={selectedPlayer}
-/>
-
+        <div className="tier-player-list">
+          {players.map((player) => (
+            <SortablePlayerCard
+              key={player.id}
+              player={player}
+              onPlayerClick={onPlayerClick}
+              selectedPlayer={selectedPlayer}
+            />
           ))}
-
         </div>
-
-      </DndContext>
-
-    </div>
+      </SortableContext>
+    </section>
   );
 }
 
-
-export default PositionColumn;
+export default TierSection;

@@ -1,70 +1,55 @@
+import { useDroppable } from "@dnd-kit/core";
+
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import {
-  useDroppable,
-} from "@dnd-kit/core";
-
 import SortablePlayerCard from "./SortablePlayerCard";
-
 
 function TierSection({
   tier,
-  players,
   position,
+  players,
   onPlayerClick,
   selectedPlayer,
 }) {
+  const tierId = `tier-${position}-${tier}`;
 
   const {
     setNodeRef,
+    isOver,
   } = useDroppable({
-    id: `tier-${position}-${tier}`,
+    id: tierId,
   });
 
-
   return (
-    <div
+    <section
       ref={setNodeRef}
-      className="tier-section"
+      className={`tier-section ${
+        isOver ? "tier-over" : ""
+      }`}
     >
-
-
-      <h3>
+      <div className="tier-header">
         Tier {tier}
-      </h3>
+      </div>
 
       <SortableContext
-        items={players.map(
-          player => player.id
-        )}
+        items={players.map((player) => player.id)}
         strategy={verticalListSortingStrategy}
       >
-
-        <div className="tier-players">
-
-          {players.map(player => (
-
+        <div className="tier-player-list">
+          {players.map((player) => (
             <SortablePlayerCard
               key={player.id}
               player={player}
-              onClick={() =>
-                onPlayerClick(player)
-              }
-              isSelected={
-                selectedPlayer?.id === player.id
-              }
+              onPlayerClick={onPlayerClick}
+              selectedPlayer={selectedPlayer}
             />
-
           ))}
-
         </div>
-
       </SortableContext>
-
-    </div>
+    </section>
   );
 }
 

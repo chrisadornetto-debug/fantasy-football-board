@@ -1,70 +1,71 @@
-import {
-  useSortable
-} from "@dnd-kit/sortable";
-
-import {
-  CSS
-} from "@dnd-kit/utilities";
-
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 
 function SortablePlayerCard({
   player,
-  onClick,
-  isSelected
+  onPlayerClick,
+  selectedPlayer,
 }) {
-
   const {
     attributes,
     listeners,
     setNodeRef,
     transform,
-    transition
+    transition,
+    isDragging,
   } = useSortable({
-    id: player.id
+    id: player.id,
+    data: {
+      type: "player",
+      playerId: player.id,
+      position: player.position,
+      tier: player.tier,
+    },
   });
-
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    opacity: isDragging ? 0.45 : 1,
+    zIndex: isDragging ? 10 : "auto",
+    position: "relative",
   };
 
+  const displayName = player.name
+    .split(" ")
+    .map((part, index) =>
+      index === 0 ? `${part[0]}.` : part
+    )
+    .join(" ");
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-
-      {...attributes}
-
       className={`player-card ${
-        isSelected ? "selected" : ""
+        selectedPlayer?.id === player.id
+          ? "selected"
+          : ""
       }`}
-
-      onClick={onClick}
+      onClick={() => onPlayerClick(player)}
     >
-
-      <span
+      <button
+        type="button"
         className="drag-handle"
+        aria-label={`Drag ${player.name}`}
+        onClick={(event) => event.stopPropagation()}
+        {...attributes}
         {...listeners}
       >
-        ☰
-      </span>
+        ⋮⋮
+      </button>
 
       <span className="rank">
-        #{player.positionRank || player.rank}
+        #{player.positionRank ?? player.rank}
       </span>
 
       <span className="name">
-        {player.name
-          .split(" ")
-          .map((part,index) =>
-            index === 0
-              ? `${part.charAt(0)}.`
-              : part
-          )
-          .join(" ")
-        }
+        {displayName}
       </span>
 
       <span className="team">
@@ -72,13 +73,14 @@ function SortablePlayerCard({
       </span>
 
       <span className="bye">
-        {player.byeWeek ? `B${player.byeWeek}` : ""}
+        B{player.byeWeek}
       </span>
 
-
+      <span className="tier">
+        T{player.tier}
+      </span>
     </div>
   );
 }
-
 
 export default SortablePlayerCard;

@@ -114,26 +114,90 @@ body {
    Player Cards
 =========================== */
 
+/* ===========================
+   Tier Sections
+=========================== */
+
+.tier-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.tier-section {
+  min-height: 55px;
+  border-bottom: 1px solid var(--border);
+  transition:
+    background 0.15s ease,
+    outline 0.15s ease;
+}
+
+.tier-section:last-child {
+  border-bottom: none;
+}
+
+.tier-section.tier-over {
+  background: #eff6ff;
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.tier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 4px 8px;
+
+  background: #f8fafc;
+  border-bottom: 1px solid #edf0f4;
+
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tier-player-list {
+  min-height: 28px;
+}
+
+
+/* ===========================
+   Player Cards
+=========================== */
+
 .player-card {
   display: grid;
 
-  /* Rank | Name | Team | Bye */
-  grid-template-columns: 20px 20px minmax(100px, 1fr) 30px 30px ;
+  /* Handle | Rank | Name | Team | Bye | Tier */
+  grid-template-columns:
+    24px
+    30px
+    minmax(0, 1fr)
+    34px
+    34px
+    30px;
 
   align-items: center;
+  gap: 3px;
 
-  gap: 2px;
+  min-height: 30px;
+  padding: 2px 4px;
 
-  padding: 2px 2px;
-
+  background: var(--surface);
   border-bottom: 1px solid #ececec;
 
   cursor: pointer;
 
-  font-family: Inter, "Arial", monospace;
+  font-family: Inter, Arial, sans-serif;
   font-size: 13px;
 
-  transition: background .15s ease;
+  transition: background 0.15s ease;
+}
+
+.player-card:last-child {
+  border-bottom: none;
 }
 
 .player-card:hover {
@@ -142,9 +206,8 @@ body {
 
 .player-card.selected {
   background: #dbeafe;
-  border-left: 4px solid var(--primary);
+  box-shadow: inset 4px 0 0 var(--primary);
 }
-
 
 .rank {
   text-align: left;
@@ -153,7 +216,7 @@ body {
 }
 
 .name {
-/*  font-weight: 700;  */
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -165,75 +228,31 @@ body {
   text-align: center;
 }
 
+.drag-handle {
+  display: grid;
+  place-items: center;
 
-/* ===========================
-   Player Details Pane
-=========================== */
+  width: 22px;
+  height: 24px;
+  padding: 0;
 
-.player-details {
-  background: var(--surface);
-
-  border: 1px solid var(--border);
-
-  border-radius: 10px;
-
-  padding: 6px;
-
-  position: sticky;
-  top: 20px;
-}
-
-.player-details h2 {
-  margin-top: 0;
-}
-
-.player-details label {
-  display: block;
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-
-.player-details input,
-.player-details select,
-.player-details textarea {
-  width: 100%;
-  margin-top: 4px;
-  padding: 8px;
-}
-
-.player-details textarea {
-  resize: vertical;
-  min-height: 150px;
-}
-
-
-/* ===========================
-   Buttons
-=========================== */
-
-button {
-  background: var(--primary);
-  color: white;
-
+  background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
 
-  padding: 8px 14px;
-
-  cursor: pointer;
+  color: var(--muted);
+  cursor: grab;
 
   font-size: 14px;
-}
-
-button:hover {
-  opacity: .9;
-}
-
-.drag-handle {
-  cursor: grab;
-  color: var(--muted);
-  text-align: center;
+  line-height: 1;
   user-select: none;
+  touch-action: none;
+}
+
+.drag-handle:hover {
+  background: #e5e7eb;
+  color: var(--text);
+  opacity: 1;
 }
 
 .drag-handle:active {
