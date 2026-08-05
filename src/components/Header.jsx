@@ -3,7 +3,15 @@ function Header() {
     <header>
       <h1>🏈 Fantasy Football Draft Board</h1>
       <p>Build your own rankings.</p>
-    </header>
+<button
+  onClick={() => {
+    if (window.confirm("Reset the entire draft board?")) {
+      onReset();
+    }
+  }}
+>
+  Reset Board
+</button>    </header>
   );
 }
 

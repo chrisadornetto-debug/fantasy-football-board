@@ -1,17 +1,36 @@
-function PlayerCard({ player, onClick }) {
+function PlayerCard({ player, onClick, isSelected }) {
   return (
-    <div
-      className="player-card"
-      onClick={onClick}
-    >
-      <div className="player-name">
-        {player.name}
-      </div>
+<div
+  className={`player-card ${isSelected ? "selected" : ""}`}
+  onClick={onClick}
+>
+  <span className="rank">
+    #{player.positionRank || player.rank}
+  </span>
 
-      <div className="player-info">
-        {player.team} • {player.position}
-      </div>
-    </div>
+  <span className="name">
+    {player.name
+      .split(" ")
+      .map((part, index) =>
+        index === 0 ? part[0] + "." : part
+      )
+      .join(" ")}
+  </span>
+
+  <span className="team">
+    {player.team}
+  </span>
+
+  <span className="bye">
+    B{player.byeWeek}
+  </span>
+
+  <span className="tier">
+    T{player.tier}
+  </span>
+
+  
+</div>
   );
 }
 
