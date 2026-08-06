@@ -15,14 +15,42 @@ import PlayerDetails from "./components/PlayerDetails";
 import playerData from "./data/players";
 
 
+const getDefaultTier = (positionRank) => {
+  if (positionRank <= 2) return 1;
+  if (positionRank <= 5) return 2;
+  if (positionRank <= 8) return 3;
+  if (positionRank <= 12) return 4;
+
+  return 5;
+};
+
+const normalizePlayers = (sourcePlayers) =>
+  sourcePlayers.map((player, index) => {
+    const positionRank = Number(
+      player.positionRank ?? player.rank ?? index + 1
+    );
+
+    const existingTier = Number(player.tier);
+
+    return {
+      ...player,
+      positionRank,
+      tier:
+        existingTier >= 1 && existingTier <= 5
+          ? existingTier
+          : getDefaultTier(positionRank),
+    };
+  });
 
 function App() {
   const [players, setPlayers] = useState(() => {
   const savedPlayers = localStorage.getItem("players");
 
-  return savedPlayers
+  const startingPlayers = savedPlayers
     ? JSON.parse(savedPlayers)
     : playerData;
+
+  return normalizePlayers(startingPlayers);
 });
 
   const [search, setSearch] = useState("");
@@ -213,11 +241,17 @@ const handleDragEnd = ({ active, over }) => {
 };
 
 const resetPlayers = () => {
-    localStorage.removeItem("players");
-    setPlayers(playerData);
-    setSelectedPlayer(null);
-  };
+  const freshPlayers = normalizePlayers(playerData);
 
+  setPlayers(freshPlayers);
+  setSelectedPlayer(null);
+  setSearch("");
+
+  localStorage.setItem(
+    "players",
+    JSON.stringify(freshPlayers)
+  );
+};
   
 return (
   <>

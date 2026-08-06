@@ -16,11 +16,13 @@ function TierSection({
 }) {
   const tierId = `tier-${position}-${tier}`;
 
-  const {
-    setNodeRef,
-    isOver,
-  } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: tierId,
+    data: {
+      type: "tier",
+      position,
+      tier,
+    },
   });
 
   return (
@@ -31,7 +33,11 @@ function TierSection({
       }`}
     >
       <div className="tier-header">
-        Tier {tier}
+        <span>Tier {tier}</span>
+
+        <span className="tier-count">
+          {players.length}
+        </span>
       </div>
 
       <SortableContext

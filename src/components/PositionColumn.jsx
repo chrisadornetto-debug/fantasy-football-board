@@ -1,59 +1,44 @@
-import { useDroppable } from "@dnd-kit/core";
+import TierSection from "./TierSection";
 
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-
-import SortablePlayerCard from "./SortablePlayerCard";
-
-function TierSection({
-  tier,
-  position,
+function PositionColumn({
+  title,
   players,
   onPlayerClick,
   selectedPlayer,
 }) {
-  const tierId = `tier-${position}-${tier}`;
-
-  const { setNodeRef, isOver } = useDroppable({
-    id: tierId,
-    data: {
-      type: "tier",
-      position,
-      tier,
-    },
-  });
+  const tiers = [1, 2, 3, 4, 5];
 
   return (
-    <section
-      ref={setNodeRef}
-      className={`tier-section ${
-        isOver ? "tier-over" : ""
-      }`}
-    >
-      <div className="tier-header">
-        <span>Tier {tier}</span>
-        <span>{players.length}</span>
-      </div>
+    <div className="position-column">
+      <h2>{title}</h2>
 
-      <SortableContext
-        items={players.map((player) => player.id)}
-        strategy={verticalListSortingStrategy}
-      >
-        <div className="tier-player-list">
-          {players.map((player) => (
-            <SortablePlayerCard
-              key={player.id}
-              player={player}
+      <div className="tier-container">
+        {tiers.map((tier) => {
+          const tierPlayers = players
+            .filter(
+              (player) =>
+                Number(player.tier) === tier
+            )
+            .sort(
+              (a, b) =>
+                (a.positionRank ?? a.rank) -
+                (b.positionRank ?? b.rank)
+            );
+
+          return (
+            <TierSection
+              key={`${title}-${tier}`}
+              tier={tier}
+              position={title}
+              players={tierPlayers}
               onPlayerClick={onPlayerClick}
               selectedPlayer={selectedPlayer}
             />
-          ))}
-        </div>
-      </SortableContext>
-    </section>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
-export default TierSection;
+export default PositionColumn;
