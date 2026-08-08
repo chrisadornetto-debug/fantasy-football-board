@@ -1,118 +1,228 @@
-function PlayerDetails({ player, updatePlayer }) {
-
+function PlayerDetails({
+  player,
+  updatePlayer,
+}) {
   if (!player) {
     return (
       <aside className="player-details">
         <h2>Player Details</h2>
-        <p>Select a player.</p>
+
+        <p className="details-placeholder">
+          Select a player to view and edit
+          their details.
+        </p>
       </aside>
     );
   }
 
+  const numericFields = [
+    "positionRank",
+    "tier",
+  ];
 
-  const changePlayer = (field, value) => {
+  const nullableNumericFields = [
+    "adp",
+    "byeWeek",
+    "offensiveCoordinatorRank",
+    "offensiveLineRank",
+    "strengthOfScheduleRank",
+  ];
+
+  const handleChange = (event) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
+
+    let nextValue = value;
+
+    if (type === "checkbox") {
+      nextValue = checked;
+    } else if (
+      numericFields.includes(name)
+    ) {
+      nextValue = Number(value);
+    } else if (
+      nullableNumericFields.includes(name)
+    ) {
+      nextValue =
+        value === ""
+          ? null
+          : Number(value);
+    } else if (name === "team") {
+      nextValue = value.toUpperCase();
+    }
+
     updatePlayer({
       ...player,
-      [field]: value
+      [name]: nextValue,
     });
   };
 
+  const renderRatingSelect = (
+    fieldName,
+    label
+  ) => (
+    <label>
+      {label}
+
+      <select
+        name={fieldName}
+        value={player[fieldName] ?? ""}
+        onChange={handleChange}
+      >
+        <option value="">
+          Not evaluated
+        </option>
+
+        <option value="1">
+          1 — Favorable
+        </option>
+
+        <option value="2">
+          2 — Average
+        </option>
+
+        <option value="3">
+          3 — Unfavorable
+        </option>
+      </select>
+    </label>
+  );
 
   return (
     <aside className="player-details">
-
       <h2>{player.name}</h2>
 
-      <p>
-        {player.team} • {player.position} • Bye: {player.byeWeek}
-      </p>
+      <label>
+        Name
 
-      <hr />
-    
-          <label>
-        Overall Rank:  
+        <input
+          type="text"
+          name="name"
+          value={player.name}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        Team
+
+        <input
+          type="text"
+          name="team"
+          value={player.team}
+          maxLength={3}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        Position
+
+        <select
+          name="position"
+          value={player.position}
+          onChange={handleChange}
+        >
+          <option value="QB">QB</option>
+          <option value="RB">RB</option>
+          <option value="WR">WR</option>
+          <option value="TE">TE</option>
+        </select>
+      </label>
+
+      <label>
+        Pos Rank
+
         <input
           type="number"
-          value={player.rank || ""}
-          onChange={(e) =>
-            changePlayer(
-              "rank",
-              Number(e.target.value)
-            )
-          }
+          name="positionRank"
+          value={player.positionRank}
+          min="1"
+          onChange={handleChange}
         />
       </label>
 
-
-      <br />
-
-<p>
       <label>
-        <strong>Tier:  </strong>  
+        Tier
+
         <select
-          value={player.tier || 1}
-          onChange={(e) =>
-            changePlayer(
-              "tier",
-              Number(e.target.value)
-            )
-          }
+          name="tier"
+          value={player.tier}
+          onChange={handleChange}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+          <option value="1">Tier 1</option>
+          <option value="2">Tier 2</option>
+          <option value="3">Tier 3</option>
+          <option value="4">Tier 4</option>
+          <option value="5">Tier 5</option>
         </select>
-     </label>
-</p>
- 
-       <p>
-        <strong>ADP:</strong>{" "}
-        {player.ADP || "—"}
-      </p>
+      </label>
 
-
-<p>
       <label>
+        ADP
+
+        <input
+          type="number"
+          name="adp"
+          value={player.adp ?? ""}
+          min="1"
+          step="0.1"
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        Bye
+
+        <input
+          type="number"
+          name="byeWeek"
+          value={player.byeWeek ?? ""}
+          min="1"
+          max="18"
+          onChange={handleChange}
+        />
+      </label>
+
+      {renderRatingSelect(
+        "offensiveCoordinatorRank",
+        "O Coord"
+      )}
+
+      {renderRatingSelect(
+        "offensiveLineRank",
+        "O Line"
+      )}
+
+      {renderRatingSelect(
+        "strengthOfScheduleRank",
+        "SOS"
+      )}
+
+      <label className="checkbox-label">
         <input
           type="checkbox"
-          checked={player.favorite || false}
-          onChange={(e) =>
-            changePlayer(
-              "favorite",
-              e.target.checked
-            )
-          }
+          name="injuryProne"
+          checked={player.injuryProne}
+          onChange={handleChange}
         />
-      Favorite
+
+        Injury Prone
       </label>
-</p>
 
-      <p>
-        <strong>Offensive Coordinator:</strong>{" "}
-        {player.offensiveCoordinator || "—"}
-      </p>
+      <label>
+        Notes
 
-      <p>
-        <strong>Offensive Rank:</strong>{" "}
-        {player.offensiveRank || "—"}
-      </p>
-
-
-  <h3>Notes</h3>
-
-      <textarea
-        rows="8"
-        value={player.notes || ""}
-        onChange={(e) =>
-          changePlayer(
-            "notes",
-            e.target.value
-          )
-        }
-      />
-
+        <textarea
+          name="notes"
+          value={player.notes}
+          onChange={handleChange}
+        />
+      </label>
     </aside>
   );
 }

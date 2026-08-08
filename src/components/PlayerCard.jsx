@@ -4,9 +4,9 @@ function PlayerCard({ player, onClick, isSelected }) {
   className={`player-card ${isSelected ? "selected" : ""}`}
   onClick={onClick}
 >
-  <span className="rank">
-    #{player.positionRank || player.rank}
-  </span>
+<span className="rank">
+  #{player.positionRank}
+</span>
 
   <span className="name">
     {player.name

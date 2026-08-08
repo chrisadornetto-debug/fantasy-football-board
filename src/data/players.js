@@ -286,17 +286,33 @@ const basePlayers = [
 ];
 
 const players = basePlayers.map((player) => ({
-  ...player,
+  id: player.id,
+  name: player.name,
+  team: player.team,
+  position: player.position,
 
-  tier: getStartingTier(player.positionRank),
-  byeWeek: teamByeWeeks[player.team],
+  positionRank: player.positionRank,
+  tier:
+    player.tier ??
+    getStartingTier(player.positionRank),
 
-  adp: null,
-  favorite: false,
-  notes: "",
+  adp: player.adp ?? null,
+  byeWeek:
+    player.byeWeek ??
+    teamByeWeeks[player.team] ??
+    null,
 
-  offensiveCoordinator: "",
-  offensiveRank: null,
+  offensiveCoordinatorRank:
+    player.offensiveCoordinatorRank ?? null,
+
+  offensiveLineRank:
+    player.offensiveLineRank ?? null,
+
+  strengthOfScheduleRank:
+    player.strengthOfScheduleRank ?? null,
+
+  injuryProne: player.injuryProne ?? false,
+  notes: player.notes ?? "",
 }));
 
 export default players;

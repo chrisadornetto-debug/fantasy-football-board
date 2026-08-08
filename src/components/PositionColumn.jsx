@@ -19,12 +19,11 @@ function PositionColumn({
               (player) =>
                 Number(player.tier) === tier
             )
-            .sort(
-              (a, b) =>
-                (a.positionRank ?? a.rank) -
-                (b.positionRank ?? b.rank)
-            );
-
+.sort(
+  (a, b) =>
+    a.positionRank -
+    b.positionRank
+);
           return (
             <TierSection
               key={`${title}-${tier}`}

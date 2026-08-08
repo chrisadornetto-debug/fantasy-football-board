@@ -55,6 +55,11 @@ body {
   font-size: 28px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 /* ===========================
    Main Layout
@@ -62,15 +67,15 @@ body {
 
 .main-layout {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 20px;
+  grid-template-columns: 1fr 250px;
+  gap: 5px;
   align-items: start;
 }
 
 .board {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
-  gap: 16px;
+  gap: 5px;
 }
 
 
@@ -269,4 +274,152 @@ body {
 
 .drag-handle:active {
   cursor: grabbing;
+}
+
+.details-placeholder {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===========================
+   Player Details Pane
+=========================== */
+
+.player-details {
+  position: sticky;
+  top: 20px;
+
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+
+  padding: 16px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
+/* Player name / title */
+
+.player-details h2 {
+  margin: -16px -16px 16px;
+  padding: 14px 16px;
+
+  background: #eef4ff;
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* Empty pane message */
+
+.details-placeholder {
+  margin: 0;
+
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* Form rows */
+
+.player-details label {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 10px;
+
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* Inputs */
+
+.player-details input,
+.player-details select,
+.player-details textarea {
+  width: 100%;
+  min-width: 0;
+
+  margin: 0;
+  padding: 7px 9px;
+
+  background: #ffffff;
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  font-family: inherit;
+  font-size: 13px;
+}
+
+
+/* Input focus */
+
+.player-details input:focus,
+.player-details select:focus,
+.player-details textarea:focus {
+  outline: none;
+
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+
+/* Selects */
+
+.player-details select {
+  cursor: pointer;
+}
+
+
+/* Notes field */
+.player-details label:has(textarea) {
+  display: block;
+}
+
+.player-details label:has(textarea) textarea {
+  width: 100%;
+  margin-top: 6px;
+  min-height: 120px;
+}
+
+/* Injury Prone checkbox */
+
+.player-details .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 12px 0 14px;
+  padding: 10px;
+
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.player-details .checkbox-label input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  accent-color: var(--primary);
+  cursor: pointer;
 }
