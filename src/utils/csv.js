@@ -13,6 +13,10 @@ export const CSV_FIELDS = [
   "offensiveLineRank",
   "strengthOfScheduleRank",
   "injuryProne",
+  "rbbc",
+  "badQB",
+  "badWRs",
+  "drafted",
   "notes",
 ];
 
@@ -62,25 +66,47 @@ const validRating = (value) => {
 
 export const exportPlayersToCsv = (players) => {
   const rows = players.map((player) => ({
-    id: player.id,
-    name: player.name,
-    team: player.team,
-    position: player.position,
-    positionRank: player.positionRank,
-    tier: player.tier,
-    adp: player.adp ?? "",
-    byeWeek: player.byeWeek ?? "",
-    offensiveCoordinatorRank:
-      player.offensiveCoordinatorRank ?? "",
-    offensiveLineRank:
-      player.offensiveLineRank ?? "",
-    strengthOfScheduleRank:
-      player.strengthOfScheduleRank ?? "",
-    injuryProne: player.injuryProne
-      ? "true"
-      : "false",
-    notes: player.notes ?? "",
-  }));
+  id: player.id,
+  name: player.name,
+  team: player.team,
+  position: player.position,
+  positionRank: player.positionRank,
+  tier: player.tier,
+
+  adp: player.adp ?? "",
+  byeWeek: player.byeWeek ?? "",
+
+  offensiveCoordinatorRank:
+    player.offensiveCoordinatorRank ?? "",
+
+  offensiveLineRank:
+    player.offensiveLineRank ?? "",
+
+  strengthOfScheduleRank:
+    player.strengthOfScheduleRank ?? "",
+
+  injuryProne: player.injuryProne
+    ? "true"
+    : "false",
+
+  rbbc: player.rbbc
+    ? "true"
+    : "false",
+
+  badQB: player.badQB
+    ? "true"
+    : "false",
+
+  badWRs: player.badWRs
+    ? "true"
+    : "false",
+
+  drafted: player.drafted
+    ? "true"
+    : "false",
+
+  notes: player.notes ?? "",
+}));
 
   const csv = Papa.unparse(rows, {
     columns: CSV_FIELDS,
@@ -244,43 +270,60 @@ export const importPlayersFromCsv = (file) =>
               );
             }
 
-            return {
-              id,
-              name: row.name?.trim() ?? "",
-              team: row.team
-                ?.trim()
-                .toUpperCase(),
-              position,
+return {
+  id,
+  name: row.name?.trim() ?? "",
+  team: row.team
+    ?.trim()
+    .toUpperCase(),
+  position,
 
-              positionRank,
-              tier,
+  positionRank,
+  tier,
 
-              adp: nullableNumber(row.adp),
-              byeWeek: nullableNumber(
-                row.byeWeek
-              ),
+  adp: nullableNumber(row.adp),
 
-              offensiveCoordinatorRank:
-                nullableNumber(
-                  row.offensiveCoordinatorRank
-                ),
+  byeWeek: nullableNumber(
+    row.byeWeek
+  ),
 
-              offensiveLineRank:
-                nullableNumber(
-                  row.offensiveLineRank
-                ),
+  offensiveCoordinatorRank:
+    nullableNumber(
+      row.offensiveCoordinatorRank
+    ),
 
-              strengthOfScheduleRank:
-                nullableNumber(
-                  row.strengthOfScheduleRank
-                ),
+  offensiveLineRank:
+    nullableNumber(
+      row.offensiveLineRank
+    ),
 
-              injuryProne: parseBoolean(
-                row.injuryProne
-              ),
+  strengthOfScheduleRank:
+    nullableNumber(
+      row.strengthOfScheduleRank
+    ),
 
-              notes: row.notes ?? "",
-            };
+  injuryProne: parseBoolean(
+    row.injuryProne
+  ),
+
+  rbbc: parseBoolean(
+    row.rbbc
+  ),
+
+  badQB: parseBoolean(
+    row.badQB
+  ),
+
+  badWRs: parseBoolean(
+    row.badWRs
+  ),
+
+  drafted: parseBoolean(
+    row.drafted
+  ),
+
+  notes: row.notes ?? "",
+};
           }
         );
 

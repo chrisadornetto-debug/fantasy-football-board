@@ -22,11 +22,11 @@ function PlayerCard({ player, onClick, isSelected }) {
   </span>
 
   <span className="bye">
-    B{player.byeWeek}
+    {player.byeWeek}
   </span>
 
   <span className="tier">
-    T{player.tier}
+    {player.tier}
   </span>
 
   

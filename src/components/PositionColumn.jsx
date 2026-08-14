@@ -5,6 +5,7 @@ function PositionColumn({
   players,
   onPlayerClick,
   selectedPlayer,
+    onToggleDrafted,
 }) {
   const tiers = [1, 2, 3, 4, 5];
 
@@ -32,6 +33,7 @@ function PositionColumn({
               players={tierPlayers}
               onPlayerClick={onPlayerClick}
               selectedPlayer={selectedPlayer}
+                onToggleDrafted={onToggleDrafted}
             />
           );
         })}

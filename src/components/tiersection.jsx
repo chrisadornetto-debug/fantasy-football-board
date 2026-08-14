@@ -13,6 +13,7 @@ function TierSection({
   players,
   onPlayerClick,
   selectedPlayer,
+  onToggleDrafted,
 }) {
   const tierId = `tier-${position}-${tier}`;
 
@@ -34,14 +35,16 @@ function TierSection({
     >
       <div className="tier-header">
         <span>Tier {tier}</span>
-
+{/* 
         <span className="tier-count">
           {players.length}
-        </span>
+        </span> */}
       </div>
 
       <SortableContext
-        items={players.map((player) => player.id)}
+        items={players.map(
+          (player) => player.id
+        )}
         strategy={verticalListSortingStrategy}
       >
         <div className="tier-player-list">
@@ -51,6 +54,7 @@ function TierSection({
               player={player}
               onPlayerClick={onPlayerClick}
               selectedPlayer={selectedPlayer}
+              onToggleDrafted={onToggleDrafted}
             />
           ))}
         </div>

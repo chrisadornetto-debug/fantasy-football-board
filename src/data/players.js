@@ -17,7 +17,6 @@ const basePlayers = [
     name: "Josh Allen",
     team: "BUF",
     position: "QB",
-    rank: 31,
     positionRank: 1,
   },
   {
@@ -25,7 +24,6 @@ const basePlayers = [
     name: "Lamar Jackson",
     team: "BAL",
     position: "QB",
-    rank: 38,
     positionRank: 2,
   },
   {
@@ -33,7 +31,6 @@ const basePlayers = [
     name: "Jayden Daniels",
     team: "WAS",
     position: "QB",
-    rank: 48,
     positionRank: 3,
   },
   {
@@ -41,7 +38,6 @@ const basePlayers = [
     name: "Joe Burrow",
     team: "CIN",
     position: "QB",
-    rank: 55,
     positionRank: 4,
   },
   {
@@ -49,7 +45,6 @@ const basePlayers = [
     name: "Drake Maye",
     team: "NE",
     position: "QB",
-    rank: 58,
     positionRank: 5,
   },
   {
@@ -57,7 +52,6 @@ const basePlayers = [
     name: "Jalen Hurts",
     team: "PHI",
     position: "QB",
-    rank: 63,
     positionRank: 6,
   },
   {
@@ -65,7 +59,6 @@ const basePlayers = [
     name: "Dak Prescott",
     team: "DAL",
     position: "QB",
-    rank: 72,
     positionRank: 7,
   },
   {
@@ -73,7 +66,6 @@ const basePlayers = [
     name: "Justin Herbert",
     team: "LAC",
     position: "QB",
-    rank: 82,
     positionRank: 8,
   },
 
@@ -86,7 +78,6 @@ const basePlayers = [
     name: "Jahmyr Gibbs",
     team: "DET",
     position: "RB",
-    rank: 1,
     positionRank: 1,
   },
   {
@@ -94,7 +85,6 @@ const basePlayers = [
     name: "Bijan Robinson",
     team: "ATL",
     position: "RB",
-    rank: 2,
     positionRank: 2,
   },
   {
@@ -102,7 +92,6 @@ const basePlayers = [
     name: "Christian McCaffrey",
     team: "SF",
     position: "RB",
-    rank: 6,
     positionRank: 3,
   },
   {
@@ -110,7 +99,6 @@ const basePlayers = [
     name: "Jonathan Taylor",
     team: "IND",
     position: "RB",
-    rank: 8,
     positionRank: 4,
   },
   {
@@ -118,7 +106,6 @@ const basePlayers = [
     name: "James Cook",
     team: "BUF",
     position: "RB",
-    rank: 11,
     positionRank: 5,
   },
   {
@@ -126,7 +113,6 @@ const basePlayers = [
     name: "Saquon Barkley",
     team: "PHI",
     position: "RB",
-    rank: 12,
     positionRank: 6,
   },
   {
@@ -134,7 +120,6 @@ const basePlayers = [
     name: "De'Von Achane",
     team: "MIA",
     position: "RB",
-    rank: 13,
     positionRank: 7,
   },
   {
@@ -142,7 +127,6 @@ const basePlayers = [
     name: "Ashton Jeanty",
     team: "LV",
     position: "RB",
-    rank: 15,
     positionRank: 8,
   },
 
@@ -155,7 +139,6 @@ const basePlayers = [
     name: "Ja'Marr Chase",
     team: "CIN",
     position: "WR",
-    rank: 3,
     positionRank: 1,
   },
   {
@@ -163,7 +146,6 @@ const basePlayers = [
     name: "Puka Nacua",
     team: "LAR",
     position: "WR",
-    rank: 4,
     positionRank: 2,
   },
   {
@@ -171,7 +153,6 @@ const basePlayers = [
     name: "Jaxon Smith-Njigba",
     team: "SEA",
     position: "WR",
-    rank: 5,
     positionRank: 3,
   },
   {
@@ -179,7 +160,6 @@ const basePlayers = [
     name: "Amon-Ra St. Brown",
     team: "DET",
     position: "WR",
-    rank: 7,
     positionRank: 4,
   },
   {
@@ -187,7 +167,6 @@ const basePlayers = [
     name: "Justin Jefferson",
     team: "MIN",
     position: "WR",
-    rank: 9,
     positionRank: 5,
   },
   {
@@ -195,7 +174,6 @@ const basePlayers = [
     name: "CeeDee Lamb",
     team: "DAL",
     position: "WR",
-    rank: 10,
     positionRank: 6,
   },
   {
@@ -203,7 +181,6 @@ const basePlayers = [
     name: "Drake London",
     team: "ATL",
     position: "WR",
-    rank: 14,
     positionRank: 7,
   },
   {
@@ -211,7 +188,6 @@ const basePlayers = [
     name: "Nico Collins",
     team: "HOU",
     position: "WR",
-    rank: 16,
     positionRank: 8,
   },
 
@@ -224,7 +200,6 @@ const basePlayers = [
     name: "Brock Bowers",
     team: "LV",
     position: "TE",
-    rank: 17,
     positionRank: 1,
   },
   {
@@ -232,7 +207,6 @@ const basePlayers = [
     name: "Trey McBride",
     team: "ARI",
     position: "TE",
-    rank: 25,
     positionRank: 2,
   },
   {
@@ -240,7 +214,6 @@ const basePlayers = [
     name: "Colston Loveland",
     team: "CHI",
     position: "TE",
-    rank: 40,
     positionRank: 3,
   },
   {
@@ -248,7 +221,6 @@ const basePlayers = [
     name: "Tyler Warren",
     team: "IND",
     position: "TE",
-    rank: 61,
     positionRank: 4,
   },
   {
@@ -256,7 +228,6 @@ const basePlayers = [
     name: "Harold Fannin",
     team: "CLE",
     position: "TE",
-    rank: 77,
     positionRank: 5,
   },
   {
@@ -264,7 +235,6 @@ const basePlayers = [
     name: "Tucker Kraft",
     team: "GB",
     position: "TE",
-    rank: 88,
     positionRank: 6,
   },
   {
@@ -272,7 +242,6 @@ const basePlayers = [
     name: "Sam LaPorta",
     team: "DET",
     position: "TE",
-    rank: 92,
     positionRank: 7,
   },
   {
@@ -280,7 +249,6 @@ const basePlayers = [
     name: "Kyle Pitts",
     team: "ATL",
     position: "TE",
-    rank: 97,
     positionRank: 8,
   },
 ];

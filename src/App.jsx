@@ -134,6 +134,23 @@ const normalizePlayer = (
       player.injuryProne === true ||
       player.injuryProne === "true",
 
+rbbc:
+  player.rbbc === true ||
+  player.rbbc === "true",
+
+badQB:
+  player.badQB === true ||
+  player.badQB === "true",
+
+badWRs:
+  player.badWRs === true ||
+  player.badWRs === "true",
+
+
+      drafted:
+  player.drafted === true ||
+  player.drafted === "true",
+
     notes: player.notes ?? "",
   };
 };
@@ -171,43 +188,7 @@ const normalizePlayers = (sourcePlayers) => {
    Saved Data Migration
 =========================== */
 
-const mergeSavedPlayersWithDefaults = (
-  savedPlayers
-) => {
-  const defaultsById = new Map(
-    playerData.map((player) => [
-      String(player.id),
-      player,
-    ])
-  );
 
-  const savedIds = new Set(
-    savedPlayers.map((player) =>
-      String(player.id)
-    )
-  );
-
-  const migratedSavedPlayers =
-    savedPlayers.map((savedPlayer) => ({
-      ...defaultsById.get(
-        String(savedPlayer.id)
-      ),
-      ...savedPlayer,
-    }));
-
-  const newDefaultPlayers =
-    playerData.filter(
-      (defaultPlayer) =>
-        !savedIds.has(
-          String(defaultPlayer.id)
-        )
-    );
-
-  return [
-    ...migratedSavedPlayers,
-    ...newDefaultPlayers,
-  ];
-};
 
 
 const loadPlayers = () => {
@@ -226,11 +207,7 @@ const loadPlayers = () => {
       return normalizePlayers(playerData);
     }
 
-    return normalizePlayers(
-      mergeSavedPlayersWithDefaults(
-        parsedPlayers
-      )
-    );
+    return normalizePlayers(parsedPlayers);
   } catch {
     return normalizePlayers(playerData);
   }
@@ -296,6 +273,33 @@ function App() {
 
     setSelectedPlayer(normalizedPlayer);
   };
+
+const toggleDrafted = (playerId) => {
+  setPlayers((currentPlayers) =>
+    currentPlayers.map((player) =>
+      player.id === playerId
+        ? {
+            ...player,
+            drafted: !player.drafted,
+          }
+        : player
+    )
+  );
+
+  setSelectedPlayer((currentPlayer) => {
+    if (
+      !currentPlayer ||
+      currentPlayer.id !== playerId
+    ) {
+      return currentPlayer;
+    }
+
+    return {
+      ...currentPlayer,
+      drafted: !currentPlayer.drafted,
+    };
+  });
+};
 
 
   /* ===========================
@@ -510,7 +514,10 @@ function App() {
         );
 
 
-      /* ===========================
+
+
+
+        /* ===========================
          Rebuild Main Player Array
       =========================== */
 
@@ -611,6 +618,90 @@ function App() {
     }
   };
 
+  const handleUpdatePlayerData = async (file) => {
+  try {
+    const importedPlayers =
+      await importPlayersFromCsv(file);
+
+    const updatesById = new Map(
+      importedPlayers.map((player) => [
+        String(player.id),
+        player,
+      ])
+    );
+
+    let updatedCount = 0;
+
+    const updatedPlayers = players.map(
+      (player) => {
+        const incomingPlayer =
+          updatesById.get(
+            String(player.id)
+          );
+
+        if (!incomingPlayer) {
+          return player;
+        }
+
+        updatedCount += 1;
+
+return {
+  ...player,
+
+  adp: incomingPlayer.adp,
+  byeWeek: incomingPlayer.byeWeek,
+
+  offensiveCoordinatorRank:
+    incomingPlayer
+      .offensiveCoordinatorRank,
+
+  offensiveLineRank:
+    incomingPlayer
+      .offensiveLineRank,
+
+  strengthOfScheduleRank:
+    incomingPlayer
+      .strengthOfScheduleRank,
+
+  injuryProne:
+    incomingPlayer.injuryProne,
+
+  rbbc:
+    incomingPlayer.rbbc,
+
+  badQB:
+    incomingPlayer.badQB,
+
+  badWRs:
+    incomingPlayer.badWRs,
+
+  notes:
+    incomingPlayer.notes,
+};      }
+    );
+
+    setPlayers(updatedPlayers);
+    setSelectedPlayer(null);
+
+    localStorage.setItem(
+      "players",
+      JSON.stringify(updatedPlayers)
+    );
+
+    window.alert(
+      `Updated data for ${updatedCount} players.\n\nYour tiers and position rankings were preserved.`
+    );
+  } catch (errors) {
+    const message =
+      Array.isArray(errors)
+        ? errors.join("\n")
+        : String(errors);
+
+    window.alert(
+      `Player data update failed:\n\n${message}`
+    );
+  }
+};
 
   /* ===========================
      Render
@@ -618,12 +709,12 @@ function App() {
 
   return (
     <>
-      <Header
-        onReset={resetPlayers}
-        onExport={handleExportCsv}
-        onImport={handleImportCsv}
-      />
-
+<Header
+  onReset={resetPlayers}
+  onExport={handleExportCsv}
+  onImport={handleImportCsv}
+  onUpdateData={handleUpdatePlayerData}
+/>
 
       <SearchBar
         value={search}
@@ -662,6 +753,7 @@ function App() {
                   selectedPlayer={
                     selectedPlayer
                   }
+                    onToggleDrafted={toggleDrafted}
                 />
               )
             )}
@@ -677,6 +769,7 @@ function App() {
     </>
   );
 }
+
 
 
 export default App;

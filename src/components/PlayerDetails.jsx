@@ -96,7 +96,7 @@ function PlayerDetails({
     <aside className="player-details">
       <h2>{player.name}</h2>
 
-      <label>
+      {/* <label> 
         Name
 
         <input
@@ -133,7 +133,7 @@ function PlayerDetails({
           <option value="TE">TE</option>
         </select>
       </label>
-
+*/}
       <label>
         Pos Rank
 
@@ -203,26 +203,65 @@ function PlayerDetails({
         "SOS"
       )}
 
-      <label className="checkbox-label">
-        <input
-          type="checkbox"
-          name="injuryProne"
-          checked={player.injuryProne}
-          onChange={handleChange}
-        />
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="injuryProne"
+    checked={player.injuryProne ?? false}
+    onChange={handleChange}
+  />
+  Injury Prone
+</label>
 
-        Injury Prone
-      </label>
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="rbbc"
+    checked={player.rbbc ?? false}
+    onChange={handleChange}
+  />
+  RBBC
+</label>
 
-      <label>
-        Notes
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="badQB"
+    checked={player.badQB ?? false}
+    onChange={handleChange}
+  />
+  Bad QB
+</label>
 
-        <textarea
-          name="notes"
-          value={player.notes}
-          onChange={handleChange}
-        />
-      </label>
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="badWRs"
+    checked={player.badWRs ?? false}
+    onChange={handleChange}
+  />
+  Bad WRs
+</label>
+
+<label>
+  Notes
+
+  <textarea
+    name="notes"
+    value={player.notes ?? ""}
+    onChange={handleChange}
+  />
+</label>
+
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="drafted"
+    checked={player.drafted ?? false}
+    onChange={handleChange}
+  />
+  Drafted
+</label>
     </aside>
   );
 }

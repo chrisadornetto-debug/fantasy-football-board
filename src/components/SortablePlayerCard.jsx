@@ -5,6 +5,7 @@ function SortablePlayerCard({
   player,
   onPlayerClick,
   selectedPlayer,
+   onToggleDrafted,
 }) {
   const {
     attributes,
@@ -38,15 +39,147 @@ function SortablePlayerCard({
     )
     .join(" ");
 
+const indicators = [];
+
+
+/* ===========================
+   Offensive Coordinator
+   All positions
+=========================== */
+
+if (player.offensiveCoordinatorRank === 1) {
+  indicators.push({
+    type: "good",
+    label: "OC",
+    title: "OC: Favorable",
+  });
+} else if (player.offensiveCoordinatorRank === 3) {
+  indicators.push({
+    type: "warn",
+    label: "OC",
+    title: "OC: Unfavorable",
+  });
+}
+
+
+/* ===========================
+   Offensive Line
+   Do NOT show for WR
+=========================== */
+
+if (player.position !== "WR") {
+  if (player.offensiveLineRank === 1) {
+    indicators.push({
+      type: "good",
+      label: "OL",
+      title: "OL: Favorable",
+    });
+  } else if (player.offensiveLineRank === 3) {
+    indicators.push({
+      type: "warn",
+      label: "OL",
+      title: "OL: Unfavorable",
+    });
+  }
+}
+
+
+/* ===========================
+   Strength of Schedule
+   All positions
+=========================== */
+
+if (player.strengthOfScheduleRank === 1) {
+  indicators.push({
+    type: "good",
+    label: "SOS",
+    title: "SOS: Favorable",
+  });
+} else if (player.strengthOfScheduleRank === 3) {
+  indicators.push({
+    type: "warn",
+    label: "SOS",
+    title: "SOS: Unfavorable",
+  });
+}
+
+
+/* ===========================
+   Injury Prone
+   All positions
+=========================== */
+
+if (player.injuryProne) {
+  indicators.push({
+    type: "warn",
+    label: "INJ",
+    title: "Injury Prone",
+  });
+}
+
+
+/* ===========================
+   RBBC
+   RB only
+=========================== */
+
+if (
+  player.position === "RB" &&
+  player.rbbc
+) {
+  indicators.push({
+    type: "warn",
+    label: "RBBC",
+    title: "Running Back by Committee",
+  });
+}
+
+
+/* ===========================
+   Bad QB
+   WR and TE only
+=========================== */
+
+if (
+  ["WR", "TE"].includes(player.position) &&
+  player.badQB
+) {
+  indicators.push({
+    type: "warn",
+    label: "BAD-QB",
+    title: "Bad QB Situation",
+  });
+}
+
+
+/* ===========================
+   Bad WRs
+   QB only
+=========================== */
+
+if (
+  player.position === "QB" &&
+  player.badWRs
+) {
+  indicators.push({
+    type: "warn",
+    label: "BAD-WR",
+    title: "Bad WR Situation",
+  });
+}
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`player-card ${
-        selectedPlayer?.id === player.id
-          ? "selected"
-          : ""
-      }`}
+     className={`player-card ${
+  selectedPlayer?.id === player.id
+    ? "selected"
+    : ""
+} ${
+  player.drafted
+    ? "drafted"
+    : ""
+}`}
       onClick={() => onPlayerClick(player)}
     >
       <button
@@ -61,7 +194,7 @@ function SortablePlayerCard({
       </button>
 
       <span className="rank">
-        #{player.positionRank ?? player.rank}
+        {player.positionRank}
       </span>
 
       <span className="name">
@@ -73,14 +206,53 @@ function SortablePlayerCard({
       </span>
 
       <span className="bye">
-        B{player.byeWeek}
+        {player.byeWeek}
       </span>
 
-      <span className="tier">
-        T{player.tier}
+
+<div className="player-indicators">
+  {indicators.map((indicator, index) => (
+    <span
+      key={`${indicator.label}-${index}`}
+      className="indicator-wrapper"
+    >
+      <span
+        className={`indicator indicator-${indicator.type}`}
+      />
+
+      <span className="indicator-tooltip">
+        {indicator.title}
       </span>
+    </span>
+    
+  ))}
+  <button
+  type="button"
+  className={`drafted-check ${
+    player.drafted ? "is-drafted" : ""
+  }`}
+  title={
+    player.drafted
+      ? "Mark as available"
+      : "Mark as drafted"
+  }
+  aria-label={
+    player.drafted
+      ? `Mark ${player.name} as available`
+      : `Mark ${player.name} as drafted`
+  }
+  onClick={(event) => {
+    event.stopPropagation();
+    onToggleDrafted(player.id);
+  }}
+>
+  ✓
+</button>
+</div>
     </div>
   );
 }
+
+
 
 export default SortablePlayerCard;
