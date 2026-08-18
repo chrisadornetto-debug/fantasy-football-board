@@ -93,13 +93,13 @@ if (player.strengthOfScheduleRank === 1) {
   indicators.push({
     type: "good",
     label: "SOS",
-    title: "SOS: Favorable",
+    title: "SOS: Easy",
   });
 } else if (player.strengthOfScheduleRank === 3) {
   indicators.push({
     type: "warn",
     label: "SOS",
-    title: "SOS: Unfavorable",
+    title: "SOS: Tough",
   });
 }
 
@@ -130,7 +130,7 @@ if (
   indicators.push({
     type: "warn",
     label: "RBBC",
-    title: "Running Back by Committee",
+    title: "RBBC",
   });
 }
 
@@ -147,7 +147,7 @@ if (
   indicators.push({
     type: "warn",
     label: "BAD-QB",
-    title: "Bad QB Situation",
+    title: "Bad QB",
   });
 }
 
@@ -164,7 +164,7 @@ if (
   indicators.push({
     type: "warn",
     label: "BAD-WR",
-    title: "Bad WR Situation",
+    title: "Bad WRs",
   });
 }
   return (

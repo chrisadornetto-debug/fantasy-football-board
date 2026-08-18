@@ -24,12 +24,14 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Inter, Arial, sans-serif;
+  
 }
 
 #root {
   max-width: 1800px;
   margin: 0 auto;
   padding: 20px 30px;
+
 }
 
 
@@ -111,7 +113,7 @@ body {
 
 .player-list {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 /* ===========================
@@ -121,14 +123,15 @@ body {
 .tier-container {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: scroll; 
 }
 
 .tier-section {
   min-height: 60px;
 
   margin: 0px;
-  overflow: hidden;
+  overflow: visible;
+  
 
   background: var(--surface);
   border: 1px solid var(--border);
@@ -189,8 +192,8 @@ body {
 
   /* Handle | Rank | Name | Team | Bye | Indicators | Drafted */
   grid-template-columns:
-    24px
-    30px
+    20px
+    20px
     minmax(0, 1fr)
     24px
     24px
@@ -202,8 +205,9 @@ body {
 
   min-height: 20px;
 
+  
   /* top right bottom left */
-  padding: 2px 0 2px 2px;
+  padding: 2px 2px 2px 2px;
 
   background: var(--surface);
   border-bottom: 1px solid #ececec;
@@ -319,7 +323,7 @@ body {
 }
 
 .drafted-check.is-drafted {
-  background: #475569;
+  background: #4a4a5f;
   border-color: #475569;
   color: white;
 }
@@ -335,7 +339,7 @@ body {
   position: absolute;
 
   bottom: calc(100% + 7px);
-  left: 0%;
+  left: 80%;
 
   transform: translateX(-50%);
 
