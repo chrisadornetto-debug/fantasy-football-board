@@ -96,7 +96,7 @@ const normalizePlayer = (
   const tier =
     Number.isInteger(parsedTier) &&
     parsedTier >= 1 &&
-    parsedTier <= 5
+    parsedTier <= 7
       ? parsedTier
       : getDefaultTier(positionRank);
 
