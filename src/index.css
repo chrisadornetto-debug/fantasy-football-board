@@ -152,14 +152,31 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  padding: 0.5px 8px;
+  padding: 1px 8px;
 
   background: #f1f5f9;
   border-bottom: 1px solid var(--border);
 
   color: var(--text);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tier-label-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+
+  color: inherit;
+  font: inherit;
+}
+
+.tier-label-input:focus {
+  outline: 1px solid var(--primary);
+  outline-offset: 1px;
 }
 
 .tier-count {
@@ -431,6 +448,10 @@ body {
 .player-card.drafted {
   background: #f1f5f9;
   opacity: 0.55;
+}
+
+.player-card.fade {
+  background: #fffde7;
 }
 
 .player-card.drafted .name {

@@ -30,6 +30,48 @@ const VALID_POSITIONS = [
   "TE",
 ];
 
+const TIERS = [1, 2, 3, 4, 5, 6, 7];
+
+const createDefaultTierLabels = () =>
+  Object.fromEntries(
+    VALID_POSITIONS.map((position) => [
+      position,
+      Object.fromEntries(
+        TIERS.map((tier) => [tier, `Tier ${tier}`])
+      ),
+    ])
+  );
+
+const loadTierLabels = () => {
+  const defaultLabels = createDefaultTierLabels();
+  const savedLabels = localStorage.getItem("tierLabels");
+
+  if (!savedLabels) {
+    return defaultLabels;
+  }
+
+  try {
+    const parsedLabels = JSON.parse(savedLabels);
+
+    return Object.fromEntries(
+      VALID_POSITIONS.map((position) => [
+        position,
+        Object.fromEntries(
+          TIERS.map((tier) => [
+            tier,
+            typeof parsedLabels?.[position]?.[tier] === "string" &&
+              parsedLabels[position][tier].trim()
+              ? parsedLabels[position][tier]
+              : defaultLabels[position][tier],
+          ])
+        ),
+      ])
+    );
+  } catch {
+    return defaultLabels;
+  }
+};
+
 
 /* ===========================
    Player Normalization
@@ -146,6 +188,9 @@ badWRs:
   player.badWRs === true ||
   player.badWRs === "true",
 
+    fade:
+      player.fade === true ||
+      player.fade === "true",
 
       drafted:
   player.drafted === true ||
@@ -222,6 +267,9 @@ function App() {
   const [players, setPlayers] =
     useState(loadPlayers);
 
+  const [tierLabels, setTierLabels] =
+    useState(loadTierLabels);
+
   const [search, setSearch] =
     useState("");
 
@@ -241,6 +289,13 @@ function App() {
       JSON.stringify(players)
     );
   }, [players]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "tierLabels",
+      JSON.stringify(tierLabels)
+    );
+  }, [tierLabels]);
 
 
   const positions = [
@@ -559,6 +614,7 @@ const toggleDrafted = (playerId) => {
       normalizePlayers(playerData);
 
     setPlayers(freshPlayers);
+    setTierLabels(createDefaultTierLabels());
     setSelectedPlayer(null);
     setSearch("");
 
@@ -566,6 +622,25 @@ const toggleDrafted = (playerId) => {
       "players",
       JSON.stringify(freshPlayers)
     );
+
+    localStorage.setItem(
+      "tierLabels",
+      JSON.stringify(createDefaultTierLabels())
+    );
+  };
+
+  const updateTierLabel = (
+    position,
+    tier,
+    label
+  ) => {
+    setTierLabels((currentLabels) => ({
+      ...currentLabels,
+      [position]: {
+        ...currentLabels[position],
+        [tier]: label,
+      },
+    }));
   };
 
 
@@ -675,6 +750,9 @@ return {
   badWRs:
     incomingPlayer.badWRs,
 
+  fade:
+    incomingPlayer.fade,
+
   notes:
     incomingPlayer.notes,
 };      }
@@ -753,6 +831,8 @@ return {
                   selectedPlayer={
                     selectedPlayer
                   }
+                  tierLabels={tierLabels[position]}
+                  onTierLabelChange={updateTierLabel}
                     onToggleDrafted={toggleDrafted}
                 />
               )

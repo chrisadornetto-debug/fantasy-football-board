@@ -176,6 +176,10 @@ if (
     ? "selected"
     : ""
 } ${
+  player.fade
+    ? "fade"
+    : ""
+} ${
   player.drafted
     ? "drafted"
     : ""

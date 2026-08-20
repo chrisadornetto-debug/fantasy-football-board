@@ -14,6 +14,8 @@ function TierSection({
   onPlayerClick,
   selectedPlayer,
   onToggleDrafted,
+  label,
+  onLabelChange,
 }) {
   const tierId = `tier-${position}-${tier}`;
 
@@ -34,7 +36,19 @@ function TierSection({
       }`}
     >
       <div className="tier-header">
-        <span>Tier {tier}</span>
+        <input
+          className="tier-label-input"
+          value={label}
+          aria-label={`${position} tier ${tier} header`}
+          onChange={(event) =>
+            onLabelChange(event.target.value)
+          }
+          onBlur={(event) => {
+            if (!event.target.value.trim()) {
+              onLabelChange(`Tier ${tier}`);
+            }
+          }}
+        />
 {/* 
         <span className="tier-count">
           {players.length}

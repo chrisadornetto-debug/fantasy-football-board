@@ -245,6 +245,16 @@ function PlayerDetails({
   Bad WRs
 </label>
 
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="fade"
+    checked={player.fade ?? false}
+    onChange={handleChange}
+  />
+  Fade
+</label>
+
 <label>
   Notes
 

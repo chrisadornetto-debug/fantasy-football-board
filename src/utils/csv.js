@@ -16,6 +16,7 @@ export const CSV_FIELDS = [
   "rbbc",
   "badQB",
   "badWRs",
+  "fade",
   "drafted",
   "notes",
 ];
@@ -98,6 +99,10 @@ export const exportPlayersToCsv = (players) => {
     : "false",
 
   badWRs: player.badWRs
+    ? "true"
+    : "false",
+
+  fade: player.fade
     ? "true"
     : "false",
 
@@ -316,6 +321,10 @@ return {
 
   badWRs: parseBoolean(
     row.badWRs
+  ),
+
+  fade: parseBoolean(
+    row.fade
   ),
 
   drafted: parseBoolean(

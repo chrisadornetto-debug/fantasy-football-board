@@ -5,7 +5,9 @@ function PositionColumn({
   players,
   onPlayerClick,
   selectedPlayer,
-    onToggleDrafted,
+  onToggleDrafted,
+  tierLabels,
+  onTierLabelChange,
 }) {
   const tiers = [1, 2, 3, 4, 5, 6, 7];
 
@@ -33,7 +35,11 @@ function PositionColumn({
               players={tierPlayers}
               onPlayerClick={onPlayerClick}
               selectedPlayer={selectedPlayer}
-                onToggleDrafted={onToggleDrafted}
+              onToggleDrafted={onToggleDrafted}
+              label={tierLabels[tier]}
+              onLabelChange={(label) =>
+                onTierLabelChange(title, tier, label)
+              }
             />
           );
         })}
