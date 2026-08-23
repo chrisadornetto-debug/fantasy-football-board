@@ -472,6 +472,9 @@ body {
   position: sticky;
   top: 20px;
 
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 40px);
   max-height: calc(100vh - 40px);
   overflow-y: auto;
 
@@ -519,7 +522,7 @@ body {
   align-items: center;
   gap: 10px;
 
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 
   color: var(--text);
   font-size: 13px;
@@ -572,24 +575,40 @@ body {
 
 /* Notes field */
 .player-details label:has(textarea) {
-  display: block;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
 }
 
 .player-details label:has(textarea) textarea {
   width: 100%;
   margin-top: 6px;
+  flex: 1;
   min-height: 120px;
+  resize: vertical;
 }
 
 /* Injury Prone checkbox */
+
+.player-details .checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 8px 0 12px;
+}
 
 .player-details .checkbox-label {
   display: flex;
   align-items: center;
   gap: 8px;
 
-  margin: 12px 0 14px;
-  padding: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 5px 6px;
+
+  font-size: 13px;
 
   background: #f8fafc;
   border: 1px solid var(--border);

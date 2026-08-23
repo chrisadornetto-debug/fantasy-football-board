@@ -164,32 +164,6 @@ function PlayerDetails({
         </select>
       </label>
 
-      <label>
-        ADP
-
-        <input
-          type="number"
-          name="adp"
-          value={player.adp ?? ""}
-          min="1"
-          step="0.1"
-          onChange={handleChange}
-        />
-      </label>
-
-      <label>
-        Bye
-
-        <input
-          type="number"
-          name="byeWeek"
-          value={player.byeWeek ?? ""}
-          min="1"
-          max="18"
-          onChange={handleChange}
-        />
-      </label>
-
       {renderRatingSelect(
         "offensiveCoordinatorRank",
         "O Coord"
@@ -205,6 +179,7 @@ function PlayerDetails({
         "SOS"
       )}
 
+<div className="checkbox-grid">
 <label className="checkbox-label">
   <input
     type="checkbox"
@@ -254,6 +229,7 @@ function PlayerDetails({
   />
   Fade
 </label>
+</div>
 
 <label>
   Notes
@@ -263,16 +239,6 @@ function PlayerDetails({
     value={player.notes ?? ""}
     onChange={handleChange}
   />
-</label>
-
-<label className="checkbox-label">
-  <input
-    type="checkbox"
-    name="drafted"
-    checked={player.drafted ?? false}
-    onChange={handleChange}
-  />
-  Drafted
 </label>
     </aside>
   );
