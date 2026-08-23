@@ -161,6 +161,7 @@ function PlayerDetails({
           <option value="5">Tier 5</option>
           <option value="6">Tier 6</option>
           <option value="7">Tier 7</option>
+          
         </select>
       </label>
 

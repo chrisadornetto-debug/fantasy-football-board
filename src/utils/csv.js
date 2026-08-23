@@ -241,7 +241,7 @@ export const importPlayersFromCsv = (file) =>
               tier > 8
             ) {
               errors.push(
-                `Row ${rowNumber}: tier must be 1-7`
+                `Row ${rowNumber}: tier must be 1-8`
               );
             }
 
