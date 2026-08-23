@@ -238,7 +238,7 @@ export const importPlayersFromCsv = (file) =>
             if (
               !Number.isInteger(tier) ||
               tier < 1 ||
-              tier > 7
+              tier > 8
             ) {
               errors.push(
                 `Row ${rowNumber}: tier must be 1-7`
