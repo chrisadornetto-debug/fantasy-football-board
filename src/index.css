@@ -207,13 +207,13 @@ body {
 .player-card {
   display: grid;
 
-  /* Handle | Rank | Name | Team | Bye | Indicators | Drafted */
+  /* Handle | Rank | Name | ADP | Team - Bye | Indicators | Drafted */
   grid-template-columns:
     20px
     20px
     minmax(0, 1fr)
-    24px
-    24px
+    34px
+    44px
     68px
     18px;
 
@@ -263,9 +263,13 @@ body {
   text-overflow: ellipsis;
 }
 
-.team,
-.bye {
+.adp {
   text-align: center;
+}
+
+.team-bye {
+  text-align: center;
+  white-space: nowrap;
 }
 
 

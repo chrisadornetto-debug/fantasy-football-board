@@ -280,6 +280,11 @@ const players = basePlayers.map((player) => ({
     player.strengthOfScheduleRank ?? null,
 
   injuryProne: player.injuryProne ?? false,
+
+rbbc: player.rbbc ?? false,
+badQB: player.badQB ?? false,
+badWRs: player.badWRs ?? false,
+
   notes: player.notes ?? "",
 }));
 

@@ -205,12 +205,12 @@ if (
         {displayName}
       </span>
 
-      <span className="team">
-        {player.team}
+      <span className="adp">
+        {player.adp ?? "-"}
       </span>
 
-      <span className="bye">
-        {player.byeWeek}
+      <span className="team-bye">
+        {player.team}-{player.byeWeek ?? "-"}
       </span>
 
 
