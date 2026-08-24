@@ -458,6 +458,10 @@ body {
   background: #fffde7;
 }
 
+.player-card.target {
+  background: #effcf1;
+}
+
 .player-card.drafted .name {
   text-decoration: line-through;
   color: var(--muted);

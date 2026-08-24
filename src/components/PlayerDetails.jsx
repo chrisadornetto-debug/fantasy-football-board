@@ -232,6 +232,16 @@ function PlayerDetails({
   />
   Fade
 </label>
+
+<label className="checkbox-label">
+  <input
+    type="checkbox"
+    name="target"
+    checked={player.target ?? false}
+    onChange={handleChange}
+  />
+  Target
+</label>
 </div>
 
 <label>

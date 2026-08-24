@@ -192,6 +192,10 @@ badWRs:
       player.fade === true ||
       player.fade === "true",
 
+    target:
+      player.target === true ||
+      player.target === "true",
+
       drafted:
   player.drafted === true ||
   player.drafted === "true",

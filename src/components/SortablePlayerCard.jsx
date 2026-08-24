@@ -180,6 +180,10 @@ if (
     ? "fade"
     : ""
 } ${
+  player.target
+    ? "target"
+    : ""
+} ${
   player.drafted
     ? "drafted"
     : ""
