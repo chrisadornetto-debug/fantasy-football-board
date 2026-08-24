@@ -30,7 +30,7 @@ const VALID_POSITIONS = [
   "TE",
 ];
 
-const TIERS = [1, 2, 3, 4, 5, 6, 7];
+const TIERS = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const createDefaultTierLabels = () =>
   Object.fromEntries(
