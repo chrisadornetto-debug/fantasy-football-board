@@ -112,6 +112,14 @@ const normalizeRating = (value) => {
     : null;
 };
 
+const normalizeNumericValue = (value) => {
+  const number = Number(value);
+
+  return Number.isFinite(number) && number >= 0
+    ? number
+    : null;
+};
+
 
 const normalizePlayer = (
   player,
@@ -168,7 +176,7 @@ const normalizePlayer = (
       ),
 
     strengthOfScheduleRank:
-      normalizeRating(
+      normalizeNumericValue(
         player.strengthOfScheduleRank
       ),
 

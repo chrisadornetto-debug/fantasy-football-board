@@ -65,6 +65,20 @@ const validRating = (value) => {
   return [1, 2, 3].includes(Number(value));
 };
 
+const validNumber = (value) => {
+  if (
+    value === "" ||
+    value === null ||
+    value === undefined
+  ) {
+    return true;
+  }
+
+  const number = Number(value);
+
+  return Number.isFinite(number) && number >= 0;
+};
+
 
 export const exportPlayersToCsv = (players) => {
   const rows = players.map((player) => ({
@@ -271,12 +285,12 @@ export const importPlayersFromCsv = (file) =>
             }
 
             if (
-              !validRating(
+              !validNumber(
                 row.strengthOfScheduleRank
               )
             ) {
               errors.push(
-                `Row ${rowNumber}: Strength of Schedule Rank must be 1-3 or blank`
+                `Row ${rowNumber}: Strength of Schedule must be a non-negative number or blank`
               );
             }
 

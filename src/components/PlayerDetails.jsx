@@ -78,7 +78,7 @@ function PlayerDetails({
         </option>
 
         <option value="1">
-          1 — Favorable
+          1 — Great
         </option>
 
         <option value="2">
@@ -86,9 +86,27 @@ function PlayerDetails({
         </option>
 
         <option value="3">
-          3 — Unfavorable
+          3 — Bad or New OC/PC
         </option>
       </select>
+    </label>
+  );
+
+  const renderNumericInput = (
+    fieldName,
+    label
+  ) => (
+    <label>
+      {label}
+
+      <input
+        type="number"
+        name={fieldName}
+        value={player[fieldName] ?? ""}
+        min="0"
+        step="any"
+        onChange={handleChange}
+      />
     </label>
   );
 
@@ -177,7 +195,7 @@ function PlayerDetails({
         "O Line"
       )}
 
-      {renderRatingSelect(
+      {renderNumericInput(
         "strengthOfScheduleRank",
         "SOS"
       )}

@@ -85,26 +85,6 @@ if (player.position !== "WR") {
 
 
 /* ===========================
-   Strength of Schedule
-   All positions
-=========================== */
-
-if (player.strengthOfScheduleRank === 1) {
-  indicators.push({
-    type: "good",
-    label: "SOS",
-    title: "SOS: Easy",
-  });
-} else if (player.strengthOfScheduleRank === 3) {
-  indicators.push({
-    type: "warn",
-    label: "SOS",
-    title: "SOS: Tough",
-  });
-}
-
-
-/* ===========================
    Injury Prone
    All positions
 =========================== */
