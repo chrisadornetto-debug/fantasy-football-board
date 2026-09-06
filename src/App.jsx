@@ -28,6 +28,7 @@ const VALID_POSITIONS = [
   "RB",
   "WR",
   "TE",
+  "IDP",
 ];
 
 const TIERS = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -219,6 +220,7 @@ const normalizePlayers = (sourcePlayers) => {
     RB: 0,
     WR: 0,
     TE: 0,
+    IDP: 0,
   };
 
   return sourcePlayers.map((player) => {
@@ -310,12 +312,28 @@ function App() {
   }, [tierLabels]);
 
 
-  const positions = [
-    "QB",
-    "RB",
-    "WR",
-    "TE",
-  ];
+  const positions = ["QB", "RB", "WR"];
+
+  const renderPositionColumn = (position) => (
+    <PositionColumn
+      key={position}
+      title={position}
+      players={
+        players.filter(
+          (player) =>
+            player.position === position &&
+            player.name
+              .toLowerCase()
+              .includes(search.toLowerCase())
+        )
+      }
+      onPlayerClick={setSelectedPlayer}
+      selectedPlayer={selectedPlayer}
+      tierLabels={tierLabels[position]}
+      onTierLabelChange={updateTierLabel}
+      onToggleDrafted={toggleDrafted}
+    />
+  );
 
 
   /* ===========================
@@ -820,35 +838,11 @@ return {
           onDragEnd={handleDragEnd}
         >
           <div className="board">
-            {positions.map(
-              (position) => (
-                <PositionColumn
-                  key={position}
-                  title={position}
-                  players={
-                    players.filter(
-                      (player) =>
-                        player.position ===
-                          position &&
-                        player.name
-                          .toLowerCase()
-                          .includes(
-                            search.toLowerCase()
-                          )
-                    )
-                  }
-                  onPlayerClick={
-                    setSelectedPlayer
-                  }
-                  selectedPlayer={
-                    selectedPlayer
-                  }
-                  tierLabels={tierLabels[position]}
-                  onTierLabelChange={updateTierLabel}
-                    onToggleDrafted={toggleDrafted}
-                />
-              )
-            )}
+            {positions.map(renderPositionColumn)}
+            <div className="position-column-stack">
+              {renderPositionColumn("TE")}
+              {renderPositionColumn("IDP")}
+            </div>
           </div>
         </DndContext>
 

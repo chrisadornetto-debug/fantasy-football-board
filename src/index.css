@@ -54,7 +54,7 @@ body {
 
 .header h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .header-actions {
@@ -80,6 +80,19 @@ body {
   gap: 5px;
 }
 
+.position-column-stack {
+  display: grid;
+  grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 5px;
+  height: calc(120vh - 204px);
+  min-height: 0;
+}
+
+.position-column-stack .position-column {
+  height: auto;
+  min-height: 0;
+}
+
 
 /* ===========================
    Position Columns
@@ -89,7 +102,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  height: calc(100vh - 170px);
+  height: calc(120vh - 204px);
 
   background: var(--surface);
   border: 1px solid var(--border);
@@ -100,15 +113,15 @@ body {
 
 .position-column h2 {
   margin: 0;
-  padding: 12px;
+  padding: 6px;
 
   text-align: center;
 
   background: #eef4ff;
   border-bottom: 1px solid var(--border);
 
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .player-list {
@@ -220,11 +233,11 @@ body {
   align-items: center;
   gap: 3px;
 
-  min-height: 20px;
+  min-height: 18px;
 
   
   /* top right bottom left */
-  padding: 2px 2px 2px 2px;
+  padding: 1px 2px 1px 2px;
 
   background: var(--surface);
   border-bottom: 1px solid #ececec;

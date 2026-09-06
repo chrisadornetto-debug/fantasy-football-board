@@ -22,7 +22,7 @@ export const CSV_FIELDS = [
   "notes",
 ];
 
-const VALID_POSITIONS = ["QB", "RB", "WR", "TE"];
+const VALID_POSITIONS = ["QB", "RB", "WR", "TE", "IDP"];
 
 const nullableNumber = (value) => {
   if (
@@ -241,7 +241,7 @@ export const importPlayersFromCsv = (file) =>
               )
             ) {
               errors.push(
-                `Row ${rowNumber}: position must be QB, RB, WR, or TE`
+                `Row ${rowNumber}: position must be QB, RB, WR, TE, or IDP`
               );
             }
 
