@@ -104,6 +104,16 @@ const toNullableNumber = (value) => {
     : null;
 };
 
+const toNullableText = (value) => {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  const text = String(value).trim();
+
+  return text === "" ? null : text;
+};
+
 
 const normalizeRating = (value) => {
   const number = Number(value);
@@ -160,7 +170,7 @@ const normalizePlayer = (
     positionRank,
     tier,
 
-    adp: toNullableNumber(player.adp),
+    adp: toNullableText(player.adp),
 
     byeWeek: toNullableNumber(
       player.byeWeek

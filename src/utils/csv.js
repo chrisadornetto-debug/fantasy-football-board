@@ -40,6 +40,16 @@ const nullableNumber = (value) => {
     : null;
 };
 
+const nullableText = (value) => {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  const text = String(value).trim();
+
+  return text === "" ? null : text;
+};
+
 const parseBoolean = (value) => {
   if (value === true) return true;
   if (value === false) return false;
@@ -305,7 +315,7 @@ return {
   positionRank,
   tier,
 
-  adp: nullableNumber(row.adp),
+  adp: nullableText(row.adp),
 
   byeWeek: nullableNumber(
     row.byeWeek

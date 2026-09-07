@@ -21,7 +21,6 @@ function PlayerDetails({
   ];
 
   const nullableNumericFields = [
-    "adp",
     "byeWeek",
     "offensiveCoordinatorRank",
     "offensiveLineRank",
@@ -110,6 +109,22 @@ function PlayerDetails({
     </label>
   );
 
+  const renderTextInput = (
+    fieldName,
+    label
+  ) => (
+    <label>
+      {label}
+
+      <input
+        type="text"
+        name={fieldName}
+        value={player[fieldName] ?? ""}
+        onChange={handleChange}
+      />
+    </label>
+  );
+
   return (
     <aside className="player-details">
       <h2>{player.name}</h2>
@@ -184,6 +199,8 @@ function PlayerDetails({
           
         </select>
       </label>
+
+      {renderTextInput("adp", "ADP")}
 
       {renderRatingSelect(
         "offensiveCoordinatorRank",
